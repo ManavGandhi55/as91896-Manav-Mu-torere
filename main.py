@@ -1,4 +1,4 @@
-#Mū tōrere is a Moari board game played on an octagon shaped board, which has 9 spots to place the stones on, one on each corner of the octagon called Kewhai and lines connecting it to the center which is called the Putahi, which is the 9th spot
+#Mū tōrere is a Moari board game played on an octagon shaped board, which has 9 spots to place the stones on, one on each corner of the octagon called periperi and lines connecting it to the center which is called the Putahi, which is the 9th spot
 
 
 
@@ -13,15 +13,15 @@ spots = {
     8: "R",
     9: "0"
 }
-# The board is a dictionary with the keys being the spots and the values being the stones.
+
 def board():
-    print('\n    ' + spots[8] + '8  |  ' + spots[1] + '1   ')
-    print('   \\         /')
-    print('  ' + spots[7] + '7         ' + spots[2] + '2')
-    print('  --    ' + spots[9] + '9   --')
-    print('  ' + spots[6] + '6         ' + spots[3] + '3   ')
-    print('   /         \\')
-    print('    ' + spots[5] + '5  |  ' + spots[4] + '4   ')
+    print('\n    ' + spots[8] + '8  --  ' + spots[1] + '1   ')
+    print('   \\          /')
+    print('  ' + spots[7] + '7          ' + spots[2] + '2')
+    print('  --    ' + spots[9] + '9    --')
+    print('  ' + spots[6] + '6          ' + spots[3] + '3   ')
+    print('   /          \\')
+    print('    ' + spots[5] + '5  --  ' + spots[4] + '4   ')
         
 
 board()

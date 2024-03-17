@@ -14,7 +14,8 @@ spots = {
     9: "0"
 }
 
-def board():
+secspots = ["1","2","3","4","5","6","7","8","9"]
+def mainboard():
     print('\n    ' + spots[8] + '8  --  ' + spots[1] + '1   ')
     print('   \\          /')
     print('  ' + spots[7] + '7          ' + spots[2] + '2')
@@ -23,9 +24,18 @@ def board():
     print('   /          \\')
     print('    ' + spots[5] + '5  --  ' + spots[4] + '4   ')
         
+def secondboard():
+    print('\n              ' + secspots[8] + '8  --  ' + secspots[1] + '1   ')
+    print('             \\          /')
+    print('            ' + secspots[7] + '7          ' + secspots[2] + '2')
+    print('            --    ' + spots[9] + '9    --')
+    print('            ' + secspots[6] + '6          ' + secspots[3] + '3   ')
+    print('             /          \\')
+    print('              ' + secspots[5] + '5  --  ' + secspots[4] + '4   ')
 
-board()
-
+    
+mainboard()
+secondboard()
 print("Welcome to my Mū tōrere game, made my Manav Gandhi")
 
 namelist = []

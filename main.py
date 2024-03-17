@@ -3,17 +3,17 @@
 
 
 spots = {
-    1: "A",
-    2: "A",
-    3: "A",
-    4: "A",
-    5: "B",
-    6: "B",
-    7: "B",
-    8: "B",
+    1: "B",
+    2: "B",
+    3: "B",
+    4: "B",
+    5: "R",
+    6: "R",
+    7: "R",
+    8: "R",
     9: "0"
 }
-
+# The board is a dictionary with the keys being the spots and the values being the stones.
 def board():
     print('\n    ' + spots[8] + '8  |  ' + spots[1] + '1   ')
     print('   \\         /')

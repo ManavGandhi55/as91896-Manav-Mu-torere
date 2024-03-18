@@ -25,13 +25,14 @@ def mainboard():
     print('    ' + spots[5] + '5  --  ' + spots[4] + '4   ')
         
 def secondboard():
-    print('\n              ' + secspots[8] + '8  --  ' + secspots[1] + '1   ')
-    print('             \\          /')
-    print('            ' + secspots[7] + '7          ' + secspots[2] + '2')
-    print('            --    ' + spots[9] + '9    --')
-    print('            ' + secspots[6] + '6          ' + secspots[3] + '3   ')
-    print('             /          \\')
-    print('              ' + secspots[5] + '5  --  ' + secspots[4] + '4   ')
+    print('\n     ' + secspots[7] + '  -  ' + secspots[0] + '   ')
+    print('    \\       /')
+    print('   ' + secspots[6] + '         ' + secspots[1] + '')
+    print('   -    ' + secspots[8] + '    -')
+    print('   ' + secspots[5] + '         ' + secspots[2] + '   ')
+    print('    /       \\')
+    print('     ' + secspots[4] + '  -  ' + secspots[3] + '   ')
+    
 
     
 mainboard()

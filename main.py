@@ -4,6 +4,7 @@ connecting it to the center which is called the Putahi, which is the 9th spot. I
 to win you have to try and block the opposing player from being able to make a name'''
 
 import os
+import time
 
 #imports the os module for python.
 
@@ -19,7 +20,6 @@ spots = {
     9: "0"
 }
 # The dictionary above stores the starting positions of the Perpere on the board.
-
 
 secspots = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 #This list stores the spots that are available to be played on.
@@ -53,22 +53,24 @@ def secondboard():
 player1 = 1
 player2 = 2
 #sets who is player 1 and player 2.
-    
+
 players = {1: "B", 2: "R"}
 #This dictionary stores the players and to there perepere colour.
 
 quit = False
 playing = True
 #boolean variables for the while loop.
-    
-playermoves = []
-namelist = []    
-#empty lists for playermoves and namelist before the while loop starts
-    
-while playing is True:
 
-    playermoves = []
-    #This list stores the moves that the player makes.
+player1moves = []
+player2moves = []
+namelist = []
+#empty lists for playermoves and namelist before the while loop starts
+
+can_movep1 = 0
+can_movep2 = 0
+
+
+def introduction():
     print("Welcome to my Mū tōrere game, made my Manav Gandhi")
 
     namelist = []
@@ -103,10 +105,37 @@ while playing is True:
         #Asks if they're finished reading the rules to Mu torere.
     print("The game will now begin...")
 
+
+while playing is True:
+
     os.system('cls' if os.name == 'nt' else 'clear')
     #clears screen to remove excessive clutter
 
+    introduction()
+
     mainboard()
     #prints main board
+
     secondboard()
     #prints second board
+    player1move = input(namelist[0] + ", please enter your move: ").lower()
+    if player1move == "quit":
+        print(
+            "Oh, I see how it is, you're quitting... You know quitters are the weakest form of homosapiens."
+        )
+        time.sleep(2)
+        os.system('cls' if os.name == 'nt' else 'clear')
+    else:
+        player1move = int(player1move)
+        #asks player 1 to enter their move.
+        if spots[player1move] == players[1] or spots[player1move] == players[2]:
+            can_movep1 = False 
+        else:
+            can_movep1 = True
+        if can_movep1 is True:
+            player1moves.append(player1move)
+            spots[player1move] = players[1]
+        else:
+            print("You cannot move there, please try again.")
+            player1move = int(input(namelist[0] +
+                                    ", please enter your move: "))

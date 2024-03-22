@@ -50,7 +50,7 @@ def second_board():
 
 #This function prints the second board which holds the spots that are available.
 
-current_player = 0
+current_player = 1
 #This variable stores the current player.
 
 players = {1: "B", 2: "R"}
@@ -61,12 +61,36 @@ playing = True
 #boolean variables for the while loop.
 
 name_list = []
+player_moves = []
 #empty lists for playermoves and namelist before the while loop starts
 
 can_move = 0
 
-def moved_piece():
-    
+def moved_piece(player_moves, spots):
+    connecting_spots = {
+        1: [8, 2, 9],
+        8: [7, 1, 9],
+    }
+    if player_moves in connecting_spots:
+        for spot in connecting_spots[player_moves]:
+            if spots[spot] == '0':
+                return spot
+                
+    elif player_moves == 9:
+        for zero in spots:
+            if spots[zero] == '0':
+                return zero
+    else:
+        if player_moves - 1 in spots and spots[player_moves - 1] == '0':
+            return player_moves - 1
+        elif player_moves + 1 in spots and spots[player_moves + 1] == '0':
+            return player_moves + 1
+        elif spots[9] == '0':
+            return 9
+        else:
+            print("what the flip dude •`_´•")
+            
+    return None
 
 def introduction():
     print("Welcome to my Mū tōrere game, made my Manav Gandhi")
@@ -78,14 +102,8 @@ def introduction():
     name_list.append(player2)
     #This is a part of code which asks the players for their playernames
     #modifies namelist to include the names of the players.
-    if len(name_list) == 2:
-        print("Welcome", name_list[0], "and", name_list[1],
-              "to the traditional Maori game, Mū tōrere!")
-        #This introduces the game to the players, including their playername variables
-    else:
-        print("Please enter a valid name for player 1 and 2")
-        #This if else statement checks if there are 2 player names inputted into the code.
-        #and if not, it asks the user to enter a valid name for player 1 and 2.
+    print("Welcome", name_list[0], "and", name_list[1], "to the traditional Maori game, Mū tōrere!")        
+    #This introduces the game to the players, including their playername variables
     rules_check = input("Do you know the rules of Mu torere: ").lower()
     if rules_check == "yes":
         print("Okay lets get started then...")
@@ -103,30 +121,35 @@ def introduction():
         #Asks if they're finished reading the rules to Mu torere.
     print("The game will now begin...")
 
-
 while playing is True:
 
     os.system('cls' if os.name == 'nt' else 'clear')
     #clears screen to remove excessive clutter
 
     introduction()
+    #calls the introduction function
 
     main_board()
     #prints main board
 
     second_board()
     #prints second board
-    if current_player == 0:
+    if current_player == 1:
         move = input("Player 1, please enter the number of the spot you would like to move to: ")
-        if move == "quit":
-            print("Oh, I see how it is, you're quitting... You know quitters are the weakest form of homosapiens.")
-            
+        
+        if move == "quit":            
+            print("Oh, I see how it is, you're quitting... You know quitters are the weakest form of homosapiens.")            
             time.sleep(2)
             os.system('cls' if os.name == 'nt' else 'clear')
-        else:
-            move = int(move)
+            break
+        elif 1 <= int(move) <= 9:            
+            if move.isdigit():
+                move = int(move)
+                player_moves.append(move)
+            else:
+                print("Invalid input. Please enter a valid spot number.")
             #asks player 1 to enter their move.
-            if spots[move] == players[1] or spots[move] == players[2]:
+            if spots[int(move)] == players[1] or spots[int(move)] == players[2]:
                 can_move = False 
             else:
                 can_move = True
@@ -138,5 +161,5 @@ while playing is True:
             else:
                 print("You cannot move there, please try again.")
                 move = input("Player 1, please enter the number of the spot you would like to move to: ")
-    elif current_player == 1:
+        
         

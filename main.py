@@ -4,19 +4,18 @@ connecting it to the center which is called the Putahi, which is the 9th spot. I
 to win you have to try and block the opposing player from being able to make a name'''
 
 import os
-import time
 
 #imports the os module for python.
 
 spots = {
-    1: "B",
-    2: "B",
-    3: "B",
-    4: "B",
-    5: "R",
-    6: "R",
-    7: "R",
-    8: "R",
+    1: "R",
+    2: "R",
+    3: "R",
+    4: "R",
+    5: "B",
+    6: "B",
+    7: "B",
+    8: "B",
     9: "0"
 }
 # The dictionary above stores the starting positions of the Perpere on the board.
@@ -50,14 +49,14 @@ def second_board():
 
 #This function prints the second board which holds the spots that are available.
 
-current_player = 1
-#This variable stores the current player.
 
 players = {1: "B", 2: "R"}
 #This dictionary stores the players and to there perepere colour.
 
-quit = False
-playing = True
+turn = 1
+#This variable stores the current turn.
+
+win = False
 #boolean variables for the while loop.
 
 name_list = []
@@ -66,31 +65,6 @@ player_moves = []
 
 can_move = 0
 
-def moved_piece(player_moves, spots):
-    connecting_spots = {
-        1: [8, 2, 9],
-        8: [7, 1, 9],
-    }
-    if player_moves in connecting_spots:
-        for spot in connecting_spots[player_moves]:
-            if spots[spot] == '0':
-                return spot
-                
-    elif player_moves == 9:
-        for zero in spots:
-            if spots[zero] == '0':
-                return zero
-    else:
-        if player_moves - 1 in spots and spots[player_moves - 1] == '0':
-            return player_moves - 1
-        elif player_moves + 1 in spots and spots[player_moves + 1] == '0':
-            return player_moves + 1
-        elif spots[9] == '0':
-            return 9
-        else:
-            print("what the flip dude •`_´•")
-            
-    return None
 
 def introduction():
     print("Welcome to my Mū tōrere game, made my Manav Gandhi")
@@ -121,45 +95,24 @@ def introduction():
         #Asks if they're finished reading the rules to Mu torere.
     print("The game will now begin...")
 
-while playing is True:
+#Start of game
 
-    os.system('cls' if os.name == 'nt' else 'clear')
-    #clears screen to remove excessive clutter
+introduction()
 
-    introduction()
-    #calls the introduction function
 
-    main_board()
-    #prints main board
-
-    second_board()
-    #prints second board
-    if current_player == 1:
-        move = input("Player 1, please enter the number of the spot you would like to move to: ")
-        
-        if move == "quit":            
-            print("Oh, I see how it is, you're quitting... You know quitters are the weakest form of homosapiens.")            
-            time.sleep(2)
-            os.system('cls' if os.name == 'nt' else 'clear')
-            break
-        elif 1 <= int(move) <= 9:            
-            if move.isdigit():
-                move = int(move)
-                player_moves.append(move)
-            else:
-                print("Invalid input. Please enter a valid spot number.")
-            #asks player 1 to enter their move.
-            if spots[int(move)] == players[1] or spots[int(move)] == players[2]:
-                can_move = False 
-            else:
-                can_move = True
-                
-            if can_move is True:
-                
-                spots[move] = players[1]
-                main_board()
-            else:
-                print("You cannot move there, please try again.")
-                move = input("Player 1, please enter the number of the spot you would like to move to: ")
-        
-        
+while win is False:
+	os.system('cls' if os.name == 'nt' else 'clear')
+	#clears screen to remove excessive clutter
+	main_board()
+	#prints main board		
+	second_board()
+	#prints second board
+	turn += 1
+	if turn > 2:
+		turn = 1		
+	
+	os.system('cls' if os.name == 'nt' else 'clear')
+	
+	
+		
+		

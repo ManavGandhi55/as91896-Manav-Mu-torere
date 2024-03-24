@@ -65,7 +65,7 @@ player_moves = []
 
 player_move = 0
 can_move = 0
-
+#variables for the while loop.
 
 def introduction():
     print("Welcome to my Mū tōrere game, made by Manav Gandhi")
@@ -95,37 +95,46 @@ def introduction():
         # Asks if they're finished reading the rules to Mu torere.
     print("The game will now begin...")
     return name_list
+    #returns the name_list to the main code, useful in the while loop.
 
 
 def move_logic():
     global player_moves
+    #global variable for player_moves
     player_move = int(
         input((name_list[turn - 1], "(", players[turn],
                ") What piece would you like to move?")))
+    #This asks the player what piece they would like to move.
     player_moves.append(player_move)
+    #This adds the player's move to the player_moves list.
     new_position = moved_piece(player_move, spots)
+    #This calls the moved_piece function to move the piece.
     if new_position is not None:
         spots[new_position] = players[turn]
         spots[player_move] = "0"
     else:
         print("Invalid move. Please try again.")
-
+    #This checks if the move is valid and if it is, it moves the piece, else error msg
 
 def moved_piece(player_move, spots):
+#This function checks if the player's move is valid and if it is, it returns the value
     connecting_spots = {
         1: [8, 2, 9],
         8: [7, 1, 9],
     }
+    # This dictionary stores the spots that are on the neighbouring sides of the connecting spots.
 
     if player_move in connecting_spots:
         available_spots = connecting_spots[player_move]
         for spot in available_spots:
             if spots[spot] == '0':
                 return spot
+    # This checks if the player's move is on a connecting spot. 
     elif player_move == 9:
         for zero in spots:
             if spots[zero] == '0':
                 return zero
+    # This checks if the player's move is on the putahi. If it is, it returns the spot that
     else:
         if player_move - 1 in spots and spots[player_move - 1] == '0':
             return player_move - 1
@@ -133,22 +142,24 @@ def moved_piece(player_move, spots):
             return player_move + 1
         elif spots[9] == '0':
             return 9
+        #This checks if the player's move is valid on its neighbouring sides
+
         else:
             return None
 
 
 # Start of game
 name_list = introduction()
-
-while not win:    
+# This calls the introduction function and stores the player names in name_list.
+while not win:
     os.system('cls' if os.name == 'nt' else 'clear')
     # clears screen to remove excessive clutter
     main_board()
     # prints main board
     second_board()
     # prints second board
-    move_logic()  
+    move_logic()
     # Handle player move
-    
-    turn = 2 if turn == 1 else 1  
+
+    turn = 2 if turn == 1 else 1
     # Switch player turn

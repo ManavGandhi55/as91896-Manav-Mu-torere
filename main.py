@@ -68,33 +68,50 @@ player_move = 0
 can_move = 0
 #variables for the while loop.
 
+delay_one = 1
+
+
 def rules():
     print("The rules to Mu torere are very simple...")
-    time.sleep(1)
+    time.sleep(delay_one)
     print("The game is played on an 8-sided board.")
     time.sleep(1.5)
-    print("with 9 spots to place the Perepers's on as the spot in the middle (the putahi) is the 9th spot. ")
+    print(
+        "with 9 spots to place the Perepers's on as the spot in the middle (the putahi) is the 9th spot. "
+    )
     time.sleep(3)
-    print("Each player takes turns moving to an unoccupied spot on the board. ")
+    print(
+        "Each player takes turns moving to an unoccupied spot on the board. ")
     time.sleep(2.5)
     print("Two players cannot occupy the same spot at the same time.")
     time.sleep(2)
-    print("In order to win, you need to block the opposing player from being able to move.")
+    print(
+        "In order to win, you need to block the opposing player from being able to move."
+    )
     time.sleep(3)
     # This is the rules of the game, which it asks the player if they already know them or not.
-    rules_finish = input("Are you finished reading the rules?(Yes/No): ").lower()
+    rules_finish = input(
+        "Are you finished reading the rules?(Yes/No): ").lower()
     if rules_finish == "yes":
         print("Okay let's get started then...")
-        time.sleep(1)
+        time.sleep(delay_one)
+    elif rules_finish == "no":
+        print("Well you'll figure it out along the way...")
+        time.sleep(delay_one)
     else:
         print("Well you'll figure it out along the way...")
-        time.sleep(1)
+        time.sleep(delay_one)
     # Asks if they're finished reading the rules to Mu torere.
+
 
 def introduction():
     print("Welcome to my Mū tōrere game, made by Manav Gandhi")
     player1 = input("Player 1, please enter your name: ")
+    print(player1 + " you are the Blue Perepere.")
+    time.sleep(delay_one)
     player2 = input("Player 2, please enter your name: ")
+    print(player2 + " you are the Red Perepere.")
+    time.sleep(delay_one)
     name_list.append(player1)
     name_list.append(player2)
     # This is a part of code which asks the players for their playernames
@@ -105,12 +122,14 @@ def introduction():
     rules_check = input("Do you know the rules of Mu torere(Yes/No): ").lower()
     if rules_check == "yes":
         print("Okay let's get started then...")
-        time.sleep(1)
-    else:
+        time.sleep(delay_one)
+    elif rules_check == "no":
         rules()
         #rules function
+    else:
+        print("I'll take that as a yes...")
     print("The game will now begin...")
-    time.sleep(1)
+    time.sleep(delay_one)
     return name_list
     #returns the name_list to the main code, useful in the while loop.
 
@@ -119,8 +138,9 @@ def move_logic():
     global player_moves
     #global variable for player_moves
     player_move = int(
-        input((name_list[turn - 1], "(", players[turn],
-               ") What piece would you like to move?")))
+        input(
+            f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?"
+        ))
     #This asks the player what piece they would like to move.
     player_moves.append(player_move)
     #This adds the player's move to the player_moves list.
@@ -130,15 +150,16 @@ def move_logic():
         spots[new_position] = players[turn]
         spots[player_move] = "0"
     else:
-        print("Invalid move. This is your last try")
-        time.sleep(1)
+        print(f"Invalid move {name_list[turn - 1]}. This is your last try")
+        time.sleep(delay_one)
         player_move = int(
             input((name_list[turn - 1], "(", players[turn],
                    ") What piece would you like to move?")))
     #This checks if the move is valid and if it is, it moves the piece, else error msg
 
+
 def moved_piece(player_move, spots):
-#This function checks if the player's move is valid and if it is, it returns the value
+    #This function checks if the player's move is valid and if it is, it returns the value
     connecting_spots = {
         1: [8, 2, 9],
         8: [7, 1, 9],
@@ -150,7 +171,7 @@ def moved_piece(player_move, spots):
         for spot in available_spots:
             if spots[spot] == '0':
                 return spot
-    # This checks if the player's move is on a connecting spot. 
+    # This checks if the player's move is on a connecting spot.
     elif player_move == 9:
         for zero in spots:
             if spots[zero] == '0':

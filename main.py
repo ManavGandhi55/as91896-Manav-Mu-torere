@@ -68,6 +68,29 @@ player_move = 0
 can_move = 0
 #variables for the while loop.
 
+def rules():
+    print("The rules to Mu torere are very simple...")
+    time.sleep(1)
+    print("The game is played on an 8-sided board.")
+    time.sleep(1.5)
+    print("with 9 spots to place the Perepers's on as the spot in the middle (the putahi) is the 9th spot. ")
+    time.sleep(3)
+    print("Each player takes turns moving to an unoccupied spot on the board. ")
+    time.sleep(2.5)
+    print("Two players cannot occupy the same spot at the same time.")
+    time.sleep(2)
+    print("In order to win, you need to block the opposing player from being able to move.")
+    time.sleep(3)
+    # This is the rules of the game, which it asks the player if they already know them or not.
+    rules_finish = input("Are you finished reading the rules?(Yes/No): ").lower()
+    if rules_finish == "yes":
+        print("Okay let's get started then...")
+        time.sleep(1)
+    else:
+        print("Well you'll figure it out along the way...")
+        time.sleep(1)
+    # Asks if they're finished reading the rules to Mu torere.
+
 def introduction():
     print("Welcome to my Mū tōrere game, made by Manav Gandhi")
     player1 = input("Player 1, please enter your name: ")
@@ -84,20 +107,8 @@ def introduction():
         print("Okay let's get started then...")
         time.sleep(1)
     else:
-        print("The rules to Mu torere are very simple...")
-        time.sleep(1)
-        print("The game is played on an 8-sided board,\n with 9 spots to place the Perepers's on as the spot in the middle (the putahi) is the 9th spot.\n Each player takes turns moving to an unoccupied spot on the board. \n Two players cannot occupy the same spot at the same time.\n In order to win, you need to block the opposing player from being able to move."
-        )
-        time.sleep(5)
-        # This is the rules of the game, which it asks the player if they already know them or not.
-        rules_finish = input("Are you finished reading the rules?(Yes/No): ").lower()
-        if rules_finish == "yes":
-            print("Okay let's get started then...")
-            time.sleep(1)
-        else:
-            print("Well you'll figure it out along the way...")
-            time.sleep(1)
-        # Asks if they're finished reading the rules to Mu torere.
+        rules()
+        #rules function
     print("The game will now begin...")
     time.sleep(1)
     return name_list
@@ -119,7 +130,7 @@ def move_logic():
         spots[new_position] = players[turn]
         spots[player_move] = "0"
     else:
-        print("Invalid move. Please try again.")
+        print("Invalid move. This is your last try")
         time.sleep(1)
         player_move = int(
             input((name_list[turn - 1], "(", players[turn],

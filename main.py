@@ -4,6 +4,7 @@ connecting it to the center which is called the Putahi, which is the 9th spot. I
 to win you have to try and block the opposing player from being able to make a name'''
 
 import os
+import time
 
 #imports the os module for python.
 
@@ -78,22 +79,27 @@ def introduction():
     print("Welcome", name_list[0], "and", name_list[1],
           "to the traditional Maori game, Mū tōrere!")
     # This introduces the game to the players, including their playername variables
-    rules_check = input("Do you know the rules of Mu torere: ").lower()
+    rules_check = input("Do you know the rules of Mu torere(Yes/No): ").lower()
     if rules_check == "yes":
         print("Okay let's get started then...")
+        time.sleep(1)
     else:
         print("The rules to Mu torere are very simple...")
-        print(
-            "The game is played on an 8-sided board, with 9 spots to place the Perepers's on as the spot in the middle (the putahi) is the 9th spot. Each player takes turns moving to an unoccupied spot on the board. Two players cannot occupy the same spot at the same time. In order to win, you need to block the opposing player from being able to move."
+        time.sleep(1)
+        print("The game is played on an 8-sided board,\n with 9 spots to place the Perepers's on as the spot in the middle (the putahi) is the 9th spot.\n Each player takes turns moving to an unoccupied spot on the board. \n Two players cannot occupy the same spot at the same time.\n In order to win, you need to block the opposing player from being able to move."
         )
+        time.sleep(5)
         # This is the rules of the game, which it asks the player if they already know them or not.
-        rules_finish = input("Are you finished reading the rules?: ").lower()
+        rules_finish = input("Are you finished reading the rules?(Yes/No): ").lower()
         if rules_finish == "yes":
             print("Okay let's get started then...")
+            time.sleep(1)
         else:
             print("Well you'll figure it out along the way...")
+            time.sleep(1)
         # Asks if they're finished reading the rules to Mu torere.
     print("The game will now begin...")
+    time.sleep(1)
     return name_list
     #returns the name_list to the main code, useful in the while loop.
 
@@ -114,6 +120,10 @@ def move_logic():
         spots[player_move] = "0"
     else:
         print("Invalid move. Please try again.")
+        time.sleep(1)
+        player_move = int(
+            input((name_list[turn - 1], "(", players[turn],
+                   ") What piece would you like to move?")))
     #This checks if the move is valid and if it is, it moves the piece, else error msg
 
 def moved_piece(player_move, spots):

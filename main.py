@@ -141,21 +141,34 @@ def move_logic():
         input(
             f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?"
         ))
-    #This asks the player what piece they would like to move.
-    player_moves.append(player_move)
-    #This adds the player's move to the player_moves list.
-    new_position = moved_piece(player_move, spots)
-    #This calls the moved_piece function to move the piece.
-    if new_position is not None:
-        spots[new_position] = players[turn]
-        spots[player_move] = "0"
-    else:
-        print(f"Invalid move {name_list[turn - 1]}. This is your last try")
-        time.sleep(delay_one)
-        player_move = int(
-            input((name_list[turn - 1], "(", players[turn],
-                   ") What piece would you like to move?")))
-    #This checks if the move is valid and if it is, it moves the piece, else error msg
+    valid_move = False
+    while valid_move is False:
+        if spots[int(player_move)] == players[turn]:
+            #This asks the player what piece they would like to move.
+            player_moves.append(player_move)
+            #This adds the player's move to the player_moves list.
+            new_position = moved_piece(player_move, spots)
+            #This calls the moved_piece function to move the piece.
+            if new_position is not None:
+                spots[new_position] = players[turn]
+                spots[player_move] = "0"
+                valid_move = True
+            else:
+                print(f"Invalid move {name_list[turn - 1]}. This is your last try")
+                time.sleep(delay_one)
+                player_move = int(
+                input(
+                    f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?"
+                ))
+            #This checks if the move is valid and if it is, it moves the piece, else error msg
+        else:
+            print(f"Invalid move {name_list[turn - 1]}. This is your last try")
+            time.sleep(delay_one)
+            player_move = int(
+            input(
+                f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?"
+            ))
+        
 
 
 def moved_piece(player_move, spots):
@@ -203,5 +216,7 @@ while not win:
     move_logic()
     # Handle player move
 
-    turn = 2 if turn == 1 else 1
+    turn += 1
+    if turn > 2:
+        turn = 1
     # Switch player turn

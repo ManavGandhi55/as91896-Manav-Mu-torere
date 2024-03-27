@@ -134,9 +134,7 @@ def introduction():
     #returns the name_list to the main code, useful in the while loop.
 
 
-def move_logic():
-    global player_moves
-    #global variable for player_moves
+def move_logic(player_moves, turn):
     player_move = int(
         input(
             f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?"
@@ -153,6 +151,7 @@ def move_logic():
                 spots[new_position] = players[turn]
                 spots[player_move] = "0"
                 valid_move = True
+                #This checks if the player's move is valid and stops the while loop.
             else:
                 print(f"Invalid move {name_list[turn - 1]}. This is your last try")
                 time.sleep(delay_one)
@@ -182,8 +181,20 @@ def moved_piece(player_move, spots):
     if player_move in connecting_spots:
         available_spots = connecting_spots[player_move]
         for spot in available_spots:
-            if spots[spot] == '0':
-                return spot
+            if player_move == 1:
+                if spots[8] == players[turn] and spots[2] == players[turn]:
+                    return None
+                else:
+                    if spots[spot] == '0':
+                        return spot
+            elif player_move == 8:
+                if spots[7] == players[turn] and spots[1] == players[turn]:
+                    return None
+                else:
+                    if spots[spot] == '0':
+                        return spot
+            else:
+                return None
     # This checks if the player's move is on a connecting spot.
     elif player_move == 9:
         for zero in spots:
@@ -191,18 +202,20 @@ def moved_piece(player_move, spots):
                 return zero
     # This checks if the player's move is on the putahi. If it is, it returns the spot that
     else:
+        if spots[player_move - 1] == players[turn] and spots[player_move + 1] == players[turn]:
+            return None
         if player_move - 1 in spots and spots[player_move - 1] == '0':
             return player_move - 1
         elif player_move + 1 in spots and spots[player_move + 1] == '0':
-            return player_move + 1
+            return player_move + 1       
         elif spots[9] == '0':
             return 9
-        #This checks if the player's move is valid on its neighbouring sides
-
-        else:
+        else: 
             return None
-
-
+            
+            
+        #This checks if the player's move is valid on its neighbouring sides
+    
 # Start of game
 name_list = introduction()
 # This calls the introduction function and stores the player names in name_list.
@@ -213,8 +226,9 @@ while not win:
     # prints main board
     second_board()
     # prints second board
-    move_logic()
+    move_logic(player_moves, turn)
     # Handle player move
+    
 
     turn += 1
     if turn > 2:

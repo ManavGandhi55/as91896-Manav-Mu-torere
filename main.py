@@ -106,20 +106,21 @@ def rules():
 
 def introduction():
     print("Welcome to my Mū tōrere game, made by Manav Gandhi")
-    player1 = input("Player 1, please enter your name: ")
-    print(player1 + " you are the Blue Perepere.")
+    name_list.append(input("Player 1, please enter your name: "))
+    #This asks for the name of the first player, appending it to a list.
+    print(name_list[0] + " you are the Blue Perepere.")
     time.sleep(delay_one)
-    player2 = input("Player 2, please enter your name: ")
-    print(player2 + " you are the Red Perepere.")
+    name_list.append(input("Player 2, please enter your name: "))
+    #This asks for the name of the second player, appending it to a list.
+    print(name_list[1] + " you are the Red Perepere.")
     time.sleep(delay_one)
-    name_list.append(player1)
-    name_list.append(player2)
     # This is a part of code which asks the players for their playernames
-    # Modifies name_list to include the names of the players.
+    
     print("Welcome", name_list[0], "and", name_list[1],
           "to the traditional Maori game, Mū tōrere!")
     # This introduces the game to the players, including their playername variables
     rules_check = input("Do you know the rules of Mu torere(Yes/No): ").lower()
+    # This asks if the players know the rules of the game.
     if rules_check == "yes":
         print("Okay let's get started then...")
         time.sleep(delay_one)
@@ -128,8 +129,7 @@ def introduction():
         #rules function
     else:
         print("I'll take that as a yes...")
-    print("The game will now begin...")
-    time.sleep(delay_one)
+        time.sleep(delay_one)
     return name_list
     #returns the name_list to the main code, useful in the while loop.
 
@@ -139,35 +139,51 @@ def move_logic(player_moves, turn):
         input(
             f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?"
         ))
+    #This asks the player what piece they would like to move.
     valid_move = False
     while valid_move is False:
-        if spots[int(player_move)] == players[turn]:
-            #This asks the player what piece they would like to move.
-            player_moves.append(player_move)
-            #This adds the player's move to the player_moves list.
-            new_position = moved_piece(player_move, spots)
-            #This calls the moved_piece function to move the piece.
-            if new_position is not None:
-                spots[new_position] = players[turn]
-                spots[player_move] = "0"
-                valid_move = True
+    #This while loop checks if the player's move is valid.
+        if 1 <= player_move <= 9:
+            if spots[int(player_move)] == players[turn]:
+            #This checks if the player's move is valid.
+                
+                player_moves.append(player_move)
+                #This adds the player's move to the player_moves list.
+                
+                new_position = moved_piece(player_move, spots)
+                #This calls the moved_piece function to move the piece.
+                
+                if new_position is not None:
+                    spots[new_position] = players[turn]
+                    spots[player_move] = "0"
+                    valid_move = True
                 #This checks if the player's move is valid and stops the while loop.
+                else:
+                    print(f"Invalid move {name_list[turn - 1]}. Please try again.")
+                    time.sleep(delay_one)
+                    player_move = int(
+                    input(
+                        f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?"
+                    ))
+                    
+                #This checks if the move is valid and if it is, it moves the piece, else error msg
             else:
-                print(f"Invalid move {name_list[turn - 1]}. This is your last try")
+                print(f"Invalid move {name_list[turn - 1]}. Please try again.")
                 time.sleep(delay_one)
                 player_move = int(
                 input(
                     f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?"
                 ))
-            #This checks if the move is valid and if it is, it moves the piece, else error msg
+                
+                #This is just in case the code bugs out or smthn, it will go to the else function
         else:
-            print(f"Invalid move {name_list[turn - 1]}. This is your last try")
+            print(f"Invalid move {name_list[turn - 1]}. Please try again.")
             time.sleep(delay_one)
             player_move = int(
             input(
                 f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?"
             ))
-        
+            
 
 
 def moved_piece(player_move, spots):
@@ -193,6 +209,7 @@ def moved_piece(player_move, spots):
                 else:
                     if spots[spot] == '0':
                         return spot
+            #This part of the code checks if its own pieces or on either side of the connecting pieces.
             else:
                 return None
     # This checks if the player's move is on a connecting spot.
@@ -200,10 +217,12 @@ def moved_piece(player_move, spots):
         for zero in spots:
             if spots[zero] == '0':
                 return zero
-    # This checks if the player's move is on the putahi. If it is, it returns the spot that
+    # This checks if the player's move is on the putahi. If it is, it returns the spot.
+    
     else:
         if spots[player_move - 1] == players[turn] and spots[player_move + 1] == players[turn]:
             return None
+        # This is a boundray to check if the player has its own pieces on either side of it.
         if player_move - 1 in spots and spots[player_move - 1] == '0':
             return player_move - 1
         elif player_move + 1 in spots and spots[player_move + 1] == '0':
@@ -212,13 +231,12 @@ def moved_piece(player_move, spots):
             return 9
         else: 
             return None
-            
-            
-        #This checks if the player's move is valid on its neighbouring sides
+    #This checks if the player's move is valid on its neighbouring sides.
     
 # Start of game
 name_list = introduction()
 # This calls the introduction function and stores the player names in name_list.
+
 while not win:
     os.system('cls' if os.name == 'nt' else 'clear')
     # clears screen to remove excessive clutter

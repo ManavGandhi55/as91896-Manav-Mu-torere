@@ -167,31 +167,16 @@ def move_logic(player_moves, turn):
                 else:
                     print(f"Invalid move {name_list[turn - 1]}. Please try again.")
                     time.sleep(delay_one)
-                    player_move =input(
-                        f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?"
-                    )
+                    continue
             else:
                 print(f"Invalid move {name_list[turn - 1]}. Please try again.")
                 time.sleep(delay_one)
-                player_move =input(
-                    f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?"
-                )
+                continue
         except ValueError:
             print(f"Invalid move {name_list[turn - 1]}. Please try again.")
             time.sleep(delay_one)
-            player_move =input(
-                f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?"
-            )
-        else:
-            print(f"Invalid move {name_list[turn - 1]}. Please try again.")
-            time.sleep(delay_one)
-            player_move =input(
-                f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?"
-            )
-            return False
-    #This while loop checks if the player's move is valid.
-            #This is just in case the code bugs out or smthn, it will go to the else function
-       
+            continue
+
             
 
 

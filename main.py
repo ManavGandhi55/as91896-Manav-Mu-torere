@@ -73,12 +73,13 @@ can_move = 0
 
 delay_one = 1
 
-def exit(player_move):    
-    if player_move in [item.lower() for item in exit_list]:
+def exit_game(player_move):    
+    if player_move.lower() in [item.lower() for item in exit_list]:
         os.system('cls' if os.name == 'nt' else 'clear')
         print("Thank you for playing Mū Tōrere!")
         time.sleep(delay_one)
         os.system('cls' if os.name == 'nt' else 'clear')
+        return True
     else:
         return False
     #This function checks if the player wants to quit the game, if so it clears the screen and prints a message.
@@ -147,60 +148,50 @@ def introduction():
 
 
 def move_logic(player_moves, turn):
-    player_move = input(f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?")
-    #This asks the player what piece they would like to move.
-    valid_move = False
-    exit(player_move)
-    while valid_move is False:
-        if str(player_move) not in [item.lower() for item in exit_list]:
-            print(f"Invalid move {name_list[turn - 1]}. Please try again.")
-            time.sleep(delay_one)
-            player_move = int(
-            input(
-                f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?"
-            ))
-    #This while loop checks if the player's move is valid.
-        else:
-            if 1 <= int(player_move) <= 9:
-                if spots[int(player_move)] == players[turn]:
-                #This checks if the player's move is valid.
+    while True:
+        player_move = input(f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move? ")
+
+        if exit_game(player_move):
+            return True  # Exit the game
+
+        try:
+            player_move = int(player_move)
+            if 1 <= player_move <= 9 and spots[player_move] == players[turn]:
+                new_position = moved_piece(player_move, spots)
+                if new_position is not None:
+                    spots[new_position] = players[turn]
+                    spots[player_move] = "0"
+                    player_moves.append(player_move)  # Add the move to player_moves
+                    return False  # Valid move, continue the game
                     
-                    player_moves.append(player_move)
-                    #This adds the player's move to the player_moves list.
-                    
-                    new_position = moved_piece(player_move, spots)
-                    #This calls the moved_piece function to move the piece.
-                    
-                    if new_position is not None:
-                        spots[new_position] = players[turn]
-                        spots[player_move] = "0"
-                        valid_move = True
-                    #This checks if the player's move is valid and stops the while loop.
-                    else:
-                        print(f"Invalid move {name_list[turn - 1]}. Please try again.")
-                        time.sleep(delay_one)
-                        player_move = int(
-                        input(
-                            f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?"
-                        ))
-                        
-                    #This checks if the move is valid and if it is, it moves the piece, else error msg
                 else:
                     print(f"Invalid move {name_list[turn - 1]}. Please try again.")
                     time.sleep(delay_one)
-                    player_move = int(
-                    input(
+                    player_move =input(
                         f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?"
-                    ))
-                    
-                    #This is just in case the code bugs out or smthn, it will go to the else function
+                    )
             else:
                 print(f"Invalid move {name_list[turn - 1]}. Please try again.")
                 time.sleep(delay_one)
-                player_move = int(
-                input(
+                player_move =input(
                     f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?"
-                ))
+                )
+        except ValueError:
+            print(f"Invalid move {name_list[turn - 1]}. Please try again.")
+            time.sleep(delay_one)
+            player_move =input(
+                f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?"
+            )
+        else:
+            print(f"Invalid move {name_list[turn - 1]}. Please try again.")
+            time.sleep(delay_one)
+            player_move =input(
+                f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move?"
+            )
+            return False
+    #This while loop checks if the player's move is valid.
+            #This is just in case the code bugs out or smthn, it will go to the else function
+       
             
 
 
@@ -262,7 +253,8 @@ while not win:
     # prints main board
     second_board()
     # prints second board
-    move_logic(player_moves, turn)
+    if move_logic(player_moves, turn) is True:
+        break
     # Handle player move
     
 

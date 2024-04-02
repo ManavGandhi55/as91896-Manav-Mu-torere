@@ -6,6 +6,7 @@ to win you have to try and block the opposing player from being able to make a n
 import os
 import time
 from termcolor import colored, cprint
+from termcolor.termcolor import COLORS
 
 #imports the os module for python.
 
@@ -47,14 +48,14 @@ can_move = 0
 delay_one = 1
 
 spots = {
-    1: colored("R", p2_colour),
-    2: colored("R", p2_colour),
-    3: colored("R", p2_colour),
-    4: colored("R", p2_colour),
-    5: colored("B", p1_colour),
-    6: colored("B", p1_colour),
-    7: colored("B", p1_colour),
-    8: colored("B", p1_colour),
+    1: "R",
+    2: "R",
+    3: "R",
+    4: "R",
+    5: "B",
+    6: "B",
+    7: "B",
+    8: "B",
     9: "0"
 }
 # The dictionary above stores the starting positions of the Perpere on the board.
@@ -178,10 +179,10 @@ def move_logic(player_moves, turn):
 
         try:
             #This try statement is for the player to move.
-            player_move = int(player_move)
             #This converts the player_move variable to an integer.
             if 1 <= player_move <= 9 and spots[player_move] == players[turn]:
-                #This checks if the player_move is a valid move and if the spot is occupied by the player's pereper
+                #This checks if the player_move is a valid move and if the spot is occupied by the player's perepere.
+                player_move = (player_move)
                 new_position = moved_piece(player_move, spots)
                 #This calls the moved_piece function to get the new position of the piece.
                 if new_position is not None:

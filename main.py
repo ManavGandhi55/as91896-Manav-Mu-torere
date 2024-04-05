@@ -3,17 +3,35 @@ to place the stones on, one on each corner of the octagon called periperi and li
 connecting it to the center which is called the Putahi, which is the 9th spot. In order 
 to win you have to try and block the opposing player from being able to make a name'''
 
-import os  # imports the os module for Python
-import time  # imports the time module for Python
-from termcolor import colored, cprint  # imports the termcolor module for Python
+import os
+# imports the os module for Python
+import time
+# imports the time module for Python
+from termcolor import colored, cprint
+# imports the termcolor module for Python
 
-#This function prints the second board which holds the spots that are available.
+cpu_colour = "green"
+p1_colour = "blue"
+p2_colour = "red"
+error_colour = "yellow"
+# These are the colours that are used for the text in the game.
+
+color_mapping = {"B": p1_colour, "R": p2_colour}
+# This dictionary maps the player's colour to the player's colour.
+
 players = {1: "B", 2: "R"}
+# This dictionary stores the players' colours.
+
+player_1_color = color_mapping[players[1]]
+# This will give you "blue"
+player_2_color = color_mapping[players[2]]
+# This will give you "red"
+
 #This dictionary stores the players and to there perepere colour.
 exit_list = [
     "quit", "break", "lobby", "exit", "leave", "end", "stop", "end game"
 ]
-#This list stores the commands that the user can use to exit the game.
+# This list stores the commands that the user can use to exit the game.
 turn = 1
 # This variable stores the current turn.
 win = False
@@ -26,19 +44,15 @@ can_move = 0
 # variables for the while loop.
 delay_one = 1
 
-p1_colour = "blue"
-p2_colour = "red"
-error_colour = "yellow"
-
 spots = {
-    1: players[2],
-    2: players[2],
-    3: players[2],
-    4: players[2],
-    5: players[1],
-    6: players[1],
-    7: players[1],
-    8: players[1],
+    1: colored(players[2], player_2_color),
+    2: colored(players[2], player_2_color),
+    3: colored(players[2], player_2_color),
+    4: colored(players[2], player_2_color),
+    5: colored(players[1], player_1_color),
+    6: colored(players[1], player_1_color),
+    7: colored(players[1], player_1_color),
+    8: colored(players[1], player_1_color),
     9: "0"
 }
 # The dictionary above stores the starting positions of the Perpere on the board.
@@ -56,7 +70,7 @@ def main_board():
     print('    ' + spots[5] + '5  --  ' + spots[4] + '4   ')
 
 
-#This function prints the main board.
+# This function prints the main board.
 def second_board():
     print('\n     ' + sec_spots[7] + '  -  ' + sec_spots[0] + '   ')
     print('    \\       /')
@@ -76,7 +90,7 @@ def exit_game(player_move):
         return True
     else:
         return False
-    #This function checks if the player wants to quit the game, if so it clears the screen and prints a message.
+    # This function checks if the player wants to quit the game, if so it clears the screen and prints a message.
 
 
 def rules():
@@ -113,14 +127,14 @@ def rules():
 
     # Asks if they're finished reading the rules to Mu torere.
 def introduction():
-    print("Welcome to my Mū tōrere game, made by Manav Gandhi")
+    cprint("Welcome to my Mū tōrere game, made by Manav Gandhi!", cpu_colour)
     name_list.append(input("Player 1, please enter your name: "))
     #This asks for the name of the first player, appending it to a list.
-    print(name_list[0] + " you are the Blue Perepere.")
+    cprint(name_list[0] + " you are the Blue Perepere.", p1_colour)
     time.sleep(delay_one)
     name_list.append(input("Player 2, please enter your name: "))
     #This asks for the name of the second player, appending it to a list.
-    print(name_list[1] + " you are the Red Perepere.")
+    cprint(name_list[1] + " you are the Red Perepere.", p2_colour)
     time.sleep(delay_one)
     # This is a part of code which asks the players for their playernames
 
@@ -134,14 +148,14 @@ def introduction():
         time.sleep(delay_one)
     elif rules_check == "no":
         rules()
-        #rules function
+        # rules function
     else:
         print("I'll take that as a yes...")
         time.sleep(delay_one)
     return name_list
 
 
-    #returns the name_list to the main code, useful in the while loop.
+    # returns the name_list to the main code, useful in the while loop.
 def move_logic(player_moves, turn):
     while True:
         player_move = input(
@@ -149,17 +163,18 @@ def move_logic(player_moves, turn):
         )
         if exit_game(player_move):
             return True  # Exit the game
+
         try:
             player_move = int(player_move)
-            if 1 <= player_move <= 9 and spots[player_move] == players[turn]:
+            if 1 <= player_move <= 9 and spots[player_move] == colored(
+                    players[turn], color_mapping[players[turn]]):
                 new_position = moved_piece(player_move, spots)
                 if new_position is not None:
-                    spots[new_position] = players[turn]
+                    spots[new_position] = colored(players[turn],
+                                                  color_mapping[players[turn]])
                     spots[player_move] = "0"
-                    player_moves.append(
-                        player_move)  # Add the move to player_moves
-                    return False  # Valid move, continue the game
-
+                    player_moves.append(player_move)
+                    return False
                 else:
                     cprint(
                         f"Invalid move {name_list[turn - 1]}. Please try again.",
@@ -180,7 +195,7 @@ def move_logic(player_moves, turn):
 
 
 def moved_piece(player_move, spots):
-    #This function checks if the player's move is valid and if it is, it returns the value
+    # This function checks if the player's move is valid and if it is, it returns the value
     connecting_spots = {
         1: [8, 2, 9],
         8: [7, 1, 9],
@@ -195,28 +210,28 @@ def moved_piece(player_move, spots):
                 else:
                     if spots[spot] == '0':
                         return spot
+                    #This part of the code checks if its own pieces or on either side of the connecting pieces.
             elif player_move == 8:
                 if spots[7] == players[turn] and spots[1] == players[turn]:
                     return None
+                    #This part of the code checks if its own pieces or on either side of the connecting pieces.
                 else:
                     if spots[spot] == '0':
                         return spot
-            #This part of the code checks if its own pieces or on either side of the connecting pieces.
             else:
                 return None
-    # This checks if the player's move is on a connecting spot.
+                # This checks if the player's move is on a connecting spot.
     elif player_move == 9:
         for zero in spots:
             if spots[zero] == '0':
                 return zero
-    # This checks if the player's move is on the putahi. If it is, it returns the spot.
-
+                # This checks if the player's move is on the putahi. If it is, it returns the spot.
     else:
-        if spots[player_move -
-                 1] == players[turn] and spots[player_move +
-                                               1] == players[turn]:
+        if spots[player_move - 1] == colored(players[turn], color_mapping[
+                players[turn]]) and spots[player_move + 1] == colored(
+                    players[turn], color_mapping[players[turn]]):
+            # This is a boundray to check if the player has its own pieces on either side of it.
             return None
-        # This is a boundray to check if the player has its own pieces on either side of it.
         if player_move - 1 in spots and spots[player_move - 1] == '0':
             return player_move - 1
         elif player_move + 1 in spots and spots[player_move + 1] == '0':
@@ -225,13 +240,15 @@ def moved_piece(player_move, spots):
             return 9
         else:
             return None
-    #This checks if the player's move is valid on its neighbouring sides.
 
+
+# This checks if the player's move is valid on its neighbouring sides.
 
 # Start of game
 name_list = introduction()
 # This calls the introduction function and stores the player names in name_list.
 while not win:
+    # gameloop
     os.system('cls' if os.name == 'nt' else 'clear')
     # clears screen to remove excessive clutter
     main_board()

@@ -3,69 +3,49 @@ to place the stones on, one on each corner of the octagon called periperi and li
 connecting it to the center which is called the Putahi, which is the 9th spot. In order 
 to win you have to try and block the opposing player from being able to make a name'''
 
-import os
-import time
-from termcolor import colored, cprint
-from termcolor.termcolor import COLORS
+import os  # imports the os module for Python
+import time  # imports the time module for Python
+from termcolor import colored, cprint  # imports the termcolor module for Python
 
-#imports the os module for python.
-
+#This function prints the second board which holds the spots that are available.
 players = {1: "B", 2: "R"}
-
 #This dictionary stores the players and to there perepere colour.
-
-p1_colour = "blue"
-#player 1 colour
-p2_colour = "red"
-#player 2 colour
-error_colour = "yellow"
-#error colour
-
-
-
 exit_list = [
-    "quit", "break", "lobby", "exit", "leave", "end", "stop", "end game",
-    "terminate", "abort", "halt", "finish", "close", "done", "escape", "off",
-    "out", "end session"
+    "quit", "break", "lobby", "exit", "leave", "end", "stop", "end game"
 ]
 #This list stores the commands that the user can use to exit the game.
-
 turn = 1
-#This variable stores the current turn.
-
+# This variable stores the current turn.
 win = False
-#boolean variables for the while loop.
-
+# boolean variables for the while loop.
 name_list = []
 player_moves = []
-
-#empty lists for playermoves and namelist before the while loop starts
-
+# empty lists for playermoves and namelist before the while loop starts
 player_move = 0
 can_move = 0
-#variables for the while loop.
-
+# variables for the while loop.
 delay_one = 1
 
+p1_colour = "blue"
+p2_colour = "red"
+error_colour = "yellow"
+
 spots = {
-    1: "R",
-    2: "R",
-    3: "R",
-    4: "R",
-    5: "B",
-    6: "B",
-    7: "B",
-    8: "B",
+    1: players[2],
+    2: players[2],
+    3: players[2],
+    4: players[2],
+    5: players[1],
+    6: players[1],
+    7: players[1],
+    8: players[1],
     9: "0"
 }
 # The dictionary above stores the starting positions of the Perpere on the board.
-
 sec_spots = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+
 #This list stores the spots that are available to be played on.
-
-
-
-
 def main_board():
     print('\n    ' + spots[8] + '8  --  ' + spots[1] + '1   ')
     print('   \\          /')
@@ -77,8 +57,6 @@ def main_board():
 
 
 #This function prints the main board.
-
-
 def second_board():
     print('\n     ' + sec_spots[7] + '  -  ' + sec_spots[0] + '   ')
     print('    \\       /')
@@ -87,9 +65,6 @@ def second_board():
     print('   ' + sec_spots[5] + '         ' + sec_spots[2] + '   ')
     print('    /       \\')
     print('     ' + sec_spots[4] + '  -  ' + sec_spots[3] + '   ')
-
-
-#This function prints the second board which holds the spots that are available.
 
 
 def exit_game(player_move):
@@ -134,9 +109,9 @@ def rules():
     else:
         print("Well you'll figure it out along the way...")
         time.sleep(delay_one)
+
+
     # Asks if they're finished reading the rules to Mu torere.
-
-
 def introduction():
     print("Welcome to my Mū tōrere game, made by Manav Gandhi")
     name_list.append(input("Player 1, please enter your name: "))
@@ -164,55 +139,44 @@ def introduction():
         print("I'll take that as a yes...")
         time.sleep(delay_one)
     return name_list
+
+
     #returns the name_list to the main code, useful in the while loop.
-
-
 def move_logic(player_moves, turn):
     while True:
-        #This while loop is for the player to move.
         player_move = input(
             f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move? "
         )
-        #This asks the player what piece they want to move.
         if exit_game(player_move):
             return True  # Exit the game
-
         try:
-            #This try statement is for the player to move.
-            #This converts the player_move variable to an integer.
+            player_move = int(player_move)
             if 1 <= player_move <= 9 and spots[player_move] == players[turn]:
-                #This checks if the player_move is a valid move and if the spot is occupied by the player's perepere.
-                player_move = (player_move)
                 new_position = moved_piece(player_move, spots)
-                #This calls the moved_piece function to get the new position of the piece.
                 if new_position is not None:
-                    #This checks if the new position is not None.
                     spots[new_position] = players[turn]
-                    #This updates the spots dictionary with the new position.
                     spots[player_move] = "0"
-                    #This updates the spots dictionary with the old position as 0.
-                    player_moves.append(player_move)
-                    # Add the move to player_moves
-                    return False
-                    # Valid move, continue the game
+                    player_moves.append(
+                        player_move)  # Add the move to player_moves
+                    return False  # Valid move, continue the game
 
                 else:
-                    #This is for if the new position is None.
-                    cprint(f"Invalid move {name_list[turn - 1]}. Please try again.", error_colour)
+                    cprint(
+                        f"Invalid move {name_list[turn - 1]}. Please try again.",
+                        error_colour)
                     time.sleep(delay_one)
                     continue
-                    #Prints the error message, then sends back to the top of the while loop
             else:
-                cprint(f"Invalid move {name_list[turn - 1]}. Please try again.", error_colour)
+                cprint(
+                    f"Invalid move {name_list[turn - 1]}. Please try again.",
+                    error_colour)
                 time.sleep(delay_one)
                 continue
-                #Prints the error message, then sends back to the top of the while loop
         except ValueError:
-            #This is for if the player_move is not a valid integer.
-            cprint(f"Invalid move {name_list[turn - 1]}. Please try again.", error_colour)
+            cprint(f"Invalid move {name_list[turn - 1]}. Please try again.",
+                   error_colour)
             time.sleep(delay_one)
             continue
-            #Prints the error message, then sends back to the top of the while loop
 
 
 def moved_piece(player_move, spots):
@@ -222,7 +186,6 @@ def moved_piece(player_move, spots):
         8: [7, 1, 9],
     }
     # This dictionary stores the spots that are on the neighbouring sides of the connecting spots.
-
     if player_move in connecting_spots:
         available_spots = connecting_spots[player_move]
         for spot in available_spots:
@@ -268,7 +231,6 @@ def moved_piece(player_move, spots):
 # Start of game
 name_list = introduction()
 # This calls the introduction function and stores the player names in name_list.
-
 while not win:
     os.system('cls' if os.name == 'nt' else 'clear')
     # clears screen to remove excessive clutter

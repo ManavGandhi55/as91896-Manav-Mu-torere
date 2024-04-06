@@ -11,38 +11,51 @@ from termcolor import colored, cprint
 # imports the termcolor module for Python
 
 cpu_colour = "green"
+# This is the colour that is used for cprint functions(no inputs)
 p1_colour = "blue"
+# This is player 1 colour.
 p2_colour = "red"
+# This is player 2 colour.
 error_colour = "yellow"
-# These are the colours that are used for the text in the game.
+# This is the colour that is used for error messages.
+# These are the colour variables that are used for the text in the game.
 
 color_mapping = {"B": p1_colour, "R": p2_colour}
 # This dictionary maps the player's colour to the player's colour.
 
 players = {1: "B", 2: "R"}
 # This dictionary stores the players' colours.
+# This can be changed in the future to allow for different reason like Moari names of blue and red.
 
 player_1_color = color_mapping[players[1]]
 # This will give you "blue"
+
 player_2_color = color_mapping[players[2]]
 # This will give you "red"
 
 #This dictionary stores the players and to there perepere colour.
+
 exit_list = [
     "quit", "break", "lobby", "exit", "leave", "end", "stop", "end game"
 ]
 # This list stores the commands that the user can use to exit the game.
+
 turn = 1
 # This variable stores the current turn.
+
 win = False
 # boolean variables for the while loop.
+
 name_list = []
 player_moves = []
 # empty lists for playermoves and namelist before the while loop starts
+
 player_move = 0
 can_move = 0
 # variables for the while loop.
+
 delay_one = 1
+# This is the default delay for the game.
 
 spots = {
     1: colored(players[2], player_2_color),
@@ -56,10 +69,11 @@ spots = {
     9: "0"
 }
 # The dictionary above stores the starting positions of the Perpere on the board.
+# The dictionary stores the coloured perepere and the singular empty space.
 sec_spots = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-
-
 #This list stores the spots that are available to be played on.
+
+
 def main_board():
     print('\n    ' + spots[8] + '8  --  ' + spots[1] + '1   ')
     print('   \\          /')
@@ -71,6 +85,8 @@ def main_board():
 
 
 # This function prints the main board.
+
+
 def second_board():
     print('\n     ' + sec_spots[7] + '  -  ' + sec_spots[0] + '   ')
     print('    \\       /')
@@ -79,6 +95,9 @@ def second_board():
     print('   ' + sec_spots[5] + '         ' + sec_spots[2] + '   ')
     print('    /       \\')
     print('     ' + sec_spots[4] + '  -  ' + sec_spots[3] + '   ')
+
+
+# This function prints the second board.
 
 
 def exit_game(player_move):
@@ -94,38 +113,41 @@ def exit_game(player_move):
 
 
 def rules():
-    print("The rules to Mu torere are very simple...")
+    # This function prints the rules of the game.
+    cprint("The rules to Mu torere are very simple...", cpu_colour)
     time.sleep(delay_one)
-    print("The game is played on an 8-sided board.")
+    cprint("The game is played on an 8-sided board.", cpu_colour)
     time.sleep(1.5)
-    print(
-        "with 9 spots to place the Perepers's on as the spot in the middle (the putahi) is the 9th spot. "
-    )
+    cprint(
+        "with 9 spots to place the Perepers's on as the spot in the middle (the putahi) is the 9th spot. ",
+        cpu_colour)
     time.sleep(3)
-    print(
-        "Each player takes turns moving to an unoccupied spot on the board. ")
+    cprint(
+        "Each player takes turns moving to an unoccupied spot on the board. ",
+        cpu_colour)
     time.sleep(2.5)
-    print("Two players cannot occupy the same spot at the same time.")
+    cprint("Two players cannot occupy the same spot at the same time.",
+           cpu_colour)
     time.sleep(2)
-    print(
-        "In order to win, you need to block the opposing player from being able to move."
-    )
+    cprint(
+        "In order to win, you need to block the opposing player from being able to move.",
+        cpu_colour)
     time.sleep(3)
     # This is the rules of the game, which it asks the player if they already know them or not.
     rules_finish = input(
         "Are you finished reading the rules?(Yes/No): ").lower()
     if rules_finish == "yes":
-        print("Okay let's get started then...")
+        cprint("Okay let's get started then...", cpu_colour)
         time.sleep(delay_one)
     elif rules_finish == "no":
-        print("Well you'll figure it out along the way...")
+        cprint("Well you'll figure it out along the way...", cpu_colour)
         time.sleep(delay_one)
     else:
-        print("Well you'll figure it out along the way...")
+        cprint("Well you'll figure it out along the way...", cpu_colour)
         time.sleep(delay_one)
+    # This asks the player if they are finished reading the rules or not.
 
 
-    # Asks if they're finished reading the rules to Mu torere.
 def introduction():
     cprint("Welcome to my Mū tōrere game, made by Manav Gandhi!", cpu_colour)
     name_list.append(input("Player 1, please enter your name: "))
@@ -137,9 +159,12 @@ def introduction():
     cprint(name_list[1] + " you are the Red Perepere.", p2_colour)
     time.sleep(delay_one)
     # This is a part of code which asks the players for their playernames
+    # It then modifies the empty name_list list to store the playernames.
 
-    print("Welcome", name_list[0], "and", name_list[1],
-          "to the traditional Maori game, Mū tōrere!")
+    cprint("Welcome " + name_list[0] + " and " + name_list[1] +
+           " to the traditional Maori game, Mū tōrere!",
+           color=cpu_colour)
+
     # This introduces the game to the players, including their playername variables
     rules_check = input("Do you know the rules of Mu torere(Yes/No): ").lower()
     # This asks if the players know the rules of the game.
@@ -161,37 +186,48 @@ def move_logic(player_moves, turn):
         player_move = input(
             f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move? "
         )
+        # This asks the player what piece they want to move.
         if exit_game(player_move):
-            return True  # Exit the game
+            return True
+            # Exit the game
 
         try:
             player_move = int(player_move)
+            # This trys makeing the player move and integer.
             if 1 <= player_move <= 9 and spots[player_move] == colored(
                     players[turn], color_mapping[players[turn]]):
+                # This checks if the player move is a number between 1 and 9
+                # and if the player move is the same as the players colour.
                 new_position = moved_piece(player_move, spots)
+                # This calls the moved_piece function.
                 if new_position is not None:
                     spots[new_position] = colored(players[turn],
                                                   color_mapping[players[turn]])
                     spots[player_move] = "0"
                     player_moves.append(player_move)
+                    # This moves the piece to the new position and replaces the old position with a 0.
                     return False
+                    # This returns false to the main code.
                 else:
                     cprint(
                         f"Invalid move {name_list[turn - 1]}. Please try again.",
                         error_colour)
                     time.sleep(delay_one)
                     continue
+                    # This prints an error message and asks the player to try again.
             else:
                 cprint(
                     f"Invalid move {name_list[turn - 1]}. Please try again.",
                     error_colour)
                 time.sleep(delay_one)
                 continue
+                # This prints an error message and asks the player to try again.
         except ValueError:
             cprint(f"Invalid move {name_list[turn - 1]}. Please try again.",
                    error_colour)
             time.sleep(delay_one)
             continue
+            # This prints an error message and asks the player to try again.
 
 
 def moved_piece(player_move, spots):
@@ -207,6 +243,7 @@ def moved_piece(player_move, spots):
             if player_move == 1:
                 if spots[8] == players[turn] and spots[2] == players[turn]:
                     return None
+    # This checks if the player's move is on the neighbouring sides of the connecting spots.
                 else:
                     if spots[spot] == '0':
                         return spot
@@ -234,10 +271,13 @@ def moved_piece(player_move, spots):
             return None
         if player_move - 1 in spots and spots[player_move - 1] == '0':
             return player_move - 1
+            # This checks it the neighbouring peice is empty. If it is, it returns the spot.
         elif player_move + 1 in spots and spots[player_move + 1] == '0':
             return player_move + 1
+            # This checks it the neighbouring peice is empty. If it is, it returns the spot.
         elif spots[9] == '0':
             return 9
+            # This checks if the player's move is on the putahi. If it is, it returns the spot.
         else:
             return None
 

@@ -228,12 +228,6 @@ def move_logic(player_moves, turn):
             continue
             # This prints an error message and asks the player to try again.
 
-def find_empty_spot(spots):
-    for key, value in spots.items():
-        if value == '0':
-            return key
-    return None  # Return None if no empty spot is found
-
 
 def moved_piece(player_move, spots):
     # This function checks if the player's move is valid and if it is, it returns the value
@@ -286,25 +280,50 @@ def moved_piece(player_move, spots):
             # This checks if the player's move is on the putahi. If it is, it returns the spot.
         else:
             return None
+
+
+def winning_logic(spots):
+    global win
+    for key, value in spots.items():
+        if value == '0':
+            empty_spot = key
+            if empty_spot == 1:
+                if (spots.get(8) == players.get(turn, "") and 
+                    spots.get(2) == players.get(turn, "") and 
+                    spots.get(9) == players.get(turn,  "")):
+                    win = True
+                    print("true")
+                    time.sleep(3)
+                else:
+                    win = False
+                    print("false")
+                    time.sleep(3)
     
-    empty_spot = find_empty_spot(spots)
-    if empty_spot == 1:
-        if connecting_spots[1] == colored(players[turn - 1], color_mapping[players[turn - 1]]):
-            win = True
-            print("true")
-            return win
-    elif empty_spot == 8:
-        if connecting_spots[8] == colored(players[turn - 1], color_mapping[players[turn - 1]]):
-            win = True
-            print("true")
-            return win
-    elif (spots[empty_spot - 1] == colored(players[turn - 1], color_mapping[players[turn]]) and
-    spots[empty_spot + 1] == colored(players[turn - 1], color_mapping[players[turn]]) and colored(players[turn - 1])) == 9:
-        win = True
-        print("true")
-        return win
-        
-    
+            elif empty_spot == 8:
+                if (spots.get(7) == players.get(turn, "") and 
+                    spots.get(1) == players.get(turn, "") and 
+                    spots.get(9) == players.get(turn, "")):
+                    win = True
+                    print("true")
+                    time.sleep(3)
+                else:
+                    win = False
+                    print("false")
+                    time.sleep(3)
+            elif (spots.get(empty_spot + 1) == players.get(turn, "") and 
+                  spots.get(empty_spot - 1) == players.get(turn, "") and 
+                  spots.get(9) == players.get(turn, "")):
+                win = True
+                print("true")
+                time.sleep(3)
+            else:
+                win = False
+                print("false")
+                time.sleep(3)
+
+    return win
+
+
 
 
 # This checks if the player's move is valid on its neighbouring sides.
@@ -314,23 +333,26 @@ name_list = introduction()
 # This calls the introduction function and stores the player names in name_list.
 while not win:
     # gameloop
+
     os.system('cls' if os.name == 'nt' else 'clear')
     # clears screen to remove excessive clutter
+
     main_board()
     # prints main board
+
     second_board()
     # prints second board
+    winning_logic(spots)
+    if win:
+        cprint("Congratulations " + name_list[turn - 1] + " wins!", cpu_colour)
+        break
+    # checks if the player has won
+
     if move_logic(player_moves, turn) is True:
         break
-    # Handle player move
+        # Handle player move
 
     turn += 1
     if turn > 2:
         turn = 1
     # Switch player turn
-    if win:
-        cprint("Congraulations " + name_list[turn] + " WINS!!!",
-               cpu_colour)
-        time.sleep(delay_one)
-        os.system('cls' if os.name == 'nt' else 'clear')
-        break

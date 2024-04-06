@@ -60,3 +60,82 @@ def moved_piece(player_move, spots):
         win = True
         if spots[ze
         return win
+
+
+
+
+# winngin logic down below
+# 1
+# 1 
+
+empty_spot = find_empty_spot(spots)
+if empty_spot == 1:
+    if connecting_spots[1] == colored(players[turn - 1], color_mapping[players[turn - 1]]):
+        win = True
+        print("true")
+        return win
+elif empty_spot == 8:
+    if connecting_spots[8] == colored(players[turn - 1], color_mapping[players[turn - 1]]):
+        win = True
+        print("true")
+        return win
+elif (spots[empty_spot - 1] == colored(players[turn - 1], color_mapping[players[turn]]) and
+spots[empty_spot + 1] == colored(players[turn - 1], color_mapping[players[turn]]) and colored(players[turn - 1])) == 9:
+    win = True
+    print("true")
+    return win
+
+
+# wining logic down below
+# 2
+# 2
+def winning_logic(spots):
+    for key, value in spots:
+        if value == '0':
+            empty_spot = key
+            if empty_spot == 1:
+                if (spots[8] == players[turn] and spots[2] == players[turn]):
+                    win = True
+                    print("true")
+            elif empty_spot == 8:
+                if (spots[7] == players[turn] and spots[1] == players[turn]):
+                    win = True
+                    print("true")
+            elif spots[empty_spot - 1] == colored(
+                    players[turn],
+                    color_mapping[players[turn]]) and spots[empty_spot + 1] == colored(
+                        players[turn], color_mapping[players[turn]]):
+                win = True
+                print("true")
+
+            if win == True:
+                cprint("Congraulations " + name_list[turn] + " WINS!!!", cpu_colour)
+                time.sleep(delay_one)
+                os.system('cls' if os.name == 'nt' else 'clear')
+                break
+
+
+# winning logic 3 
+# 3 
+# 3
+def winning_logic(spots):
+global win
+for key, value in spots.items():
+    if value == '0':
+        empty_spot = key
+        if empty_spot == 1:
+            if (spots[8] == players[turn - 1] and spots[2] == players[turn - 1] and spots[9] == players[turn - 1]):
+                win = True
+            else:
+                win = False
+        elif empty_spot == 8:
+            if (spots[7] == players[turn - 1] and spots[1] == players[turn - 1] and spots[9] == players[turn - 1]):
+                win = True
+            else:
+                win = False
+        elif empty_spot + 1 in spots and spots[empty_spot - 1] and spots[9] == colored(players[turn - 1], color_mapping[players[turn - 1]]):
+            win = True
+        else:
+            win = False
+
+return win   

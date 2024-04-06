@@ -214,7 +214,6 @@ def move_logic(player_moves, turn):
                         error_colour)
                     time.sleep(delay_one)
                     continue
-                    # This prints an error message and asks the player to try again.
             else:
                 cprint(
                     f"Invalid move {name_list[turn - 1]}. Please try again.",
@@ -229,6 +228,12 @@ def move_logic(player_moves, turn):
             continue
             # This prints an error message and asks the player to try again.
 
+def find_empty_spot(spots):
+    for key, value in spots.items():
+        if value == '0':
+            return key
+    return None  # Return None if no empty spot is found
+
 
 def moved_piece(player_move, spots):
     # This function checks if the player's move is valid and if it is, it returns the value
@@ -237,6 +242,7 @@ def moved_piece(player_move, spots):
         8: [7, 1, 9],
     }
     # This dictionary stores the spots that are on the neighbouring sides of the connecting spots.
+
     if player_move in connecting_spots:
         available_spots = connecting_spots[player_move]
         for spot in available_spots:
@@ -280,6 +286,25 @@ def moved_piece(player_move, spots):
             # This checks if the player's move is on the putahi. If it is, it returns the spot.
         else:
             return None
+    
+    empty_spot = find_empty_spot(spots)
+    if empty_spot == 1:
+        if connecting_spots[1] == colored(players[turn - 1], color_mapping[players[turn - 1]]):
+            win = True
+            print("true")
+            return win
+    elif empty_spot == 8:
+        if connecting_spots[8] == colored(players[turn - 1], color_mapping[players[turn - 1]]):
+            win = True
+            print("true")
+            return win
+    elif (spots[empty_spot - 1] == colored(players[turn - 1], color_mapping[players[turn]]) and
+    spots[empty_spot + 1] == colored(players[turn - 1], color_mapping[players[turn]]) and colored(players[turn - 1])) == 9:
+        win = True
+        print("true")
+        return win
+        
+    
 
 
 # This checks if the player's move is valid on its neighbouring sides.
@@ -303,3 +328,9 @@ while not win:
     if turn > 2:
         turn = 1
     # Switch player turn
+    if win:
+        cprint("Congraulations " + name_list[turn] + " WINS!!!",
+               cpu_colour)
+        time.sleep(delay_one)
+        os.system('cls' if os.name == 'nt' else 'clear')
+        break

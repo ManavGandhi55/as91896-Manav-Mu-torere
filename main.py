@@ -284,13 +284,14 @@ def moved_piece(player_move, spots):
 
 def winning_logic(spots, players):
     global win
-
     time.sleep(delay_one)
+    current_player = players[turn]
+    current_player = colored(current_player, color_mapping[players[turn]])
     for key, value in spots.items():
         if value == '0':
             empty_spot = key
 
-            print("v: ", value, " k:  ", key, "player: ", players[turn])
+            print("v: ", value, " k:  ", key, "player: ", players[turn], "spot", spots.get(key), "current player", current_player)
             
             if empty_spot == 9:
                 print("empty")
@@ -300,9 +301,9 @@ def winning_logic(spots, players):
             
             
             if empty_spot == 1:
-                if (spots.get(8) == players[turn] and 
-                    spots.get(2) == players[turn] and 
-                    spots.get(9) == players[turn]):
+                if (spots.get(8) == current_player and 
+                    spots.get(2) == current_player and 
+                    spots.get(9) == current_player):
                     win = True
                     print("1 t")
                     
@@ -312,9 +313,9 @@ def winning_logic(spots, players):
                     
     
             elif empty_spot == 8:
-                if (spots.get(7) == players[turn] and 
-                    spots.get(1) == players[turn] and 
-                    spots.get(9) == players[turn]):
+                if (spots.get(7) == current_player and 
+                    spots.get(1) == current_player and 
+                    spots.get(9) == current_player):
                     win = True
                     print("8 t")
                     
@@ -324,11 +325,24 @@ def winning_logic(spots, players):
                     
             
             else:
-                if (spots.get(empty_spot + 1) == players[turn] and 
-                   spots.get(empty_spot - 1) == players[turn] and 
-                   spots.get(9) == players[turn]):
-                    win = True
-                    print("generic t")
+                print(spots.get(empty_spot + 1))
+                print(spots.get(empty_spot - 1))
+                print(spots.get(9))
+                if spots.get(empty_spot + 1) == current_player:
+                    if spots.get(empty_spot - 1) == current_player:
+                        if spots.get(9) == current_player:
+                            win = True
+                            print("generic t")
+                        else:
+                            print("gneeric f9")
+                    
+                    else:
+                        print("generic f-")
+                        
+                    
+                else:
+                    print("generic f+")
+                    
                 
             
                 

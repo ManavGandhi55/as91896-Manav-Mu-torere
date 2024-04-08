@@ -282,45 +282,59 @@ def moved_piece(player_move, spots):
             return None
 
 
-def winning_logic(spots):
+def winning_logic(spots, players):
     global win
+
+    time.sleep(delay_one)
     for key, value in spots.items():
         if value == '0':
             empty_spot = key
+
+            print("v: ", value, " k:  ", key, "player: ", players[turn])
+            
+            if empty_spot == 9:
+                print("empty")
+                return False
+
+            # This checks if the putahi is empty. If it is, it returns false.
+            
+            
             if empty_spot == 1:
-                if (spots.get(8) == players.get(turn, "") and 
-                    spots.get(2) == players.get(turn, "") and 
-                    spots.get(9) == players.get(turn,  "")):
+                if (spots.get(8) == players[turn] and 
+                    spots.get(2) == players[turn] and 
+                    spots.get(9) == players[turn]):
                     win = True
-                    print("true")
-                    time.sleep(3)
-                else:
+                    print("1 t")
+                    
+                elif win is False:
                     win = False
-                    print("false")
-                    time.sleep(3)
+                    print("1 f")
+                    
     
             elif empty_spot == 8:
-                if (spots.get(7) == players.get(turn, "") and 
-                    spots.get(1) == players.get(turn, "") and 
-                    spots.get(9) == players.get(turn, "")):
+                if (spots.get(7) == players[turn] and 
+                    spots.get(1) == players[turn] and 
+                    spots.get(9) == players[turn]):
                     win = True
-                    print("true")
-                    time.sleep(3)
-                else:
+                    print("8 t")
+                    
+                elif win is False:
                     win = False
-                    print("false")
-                    time.sleep(3)
-            elif (spots.get(empty_spot + 1) == players.get(turn, "") and 
-                  spots.get(empty_spot - 1) == players.get(turn, "") and 
-                  spots.get(9) == players.get(turn, "")):
-                win = True
-                print("true")
-                time.sleep(3)
+                    print("8 f")
+                    
+            
             else:
-                win = False
-                print("false")
-                time.sleep(3)
-
+                if (spots.get(empty_spot + 1) == players[turn] and 
+                   spots.get(empty_spot - 1) == players[turn] and 
+                   spots.get(9) == players[turn]):
+                    win = True
+                    print("generic t")
+                
+            
+                
+                
+    if win == False:
+        print("no wins")
     return win
 
 
@@ -334,7 +348,7 @@ name_list = introduction()
 while not win:
     # gameloop
 
-    os.system('cls' if os.name == 'nt' else 'clear')
+    # os.system('cls' if os.name == 'nt' else 'clear')
     # clears screen to remove excessive clutter
 
     main_board()
@@ -342,17 +356,22 @@ while not win:
 
     second_board()
     # prints second board
-    winning_logic(spots)
-    if win:
-        cprint("Congratulations " + name_list[turn - 1] + " wins!", cpu_colour)
-        break
+    
     # checks if the player has won
 
     if move_logic(player_moves, turn) is True:
         break
         # Handle player move
+    
+    
+
+    if winning_logic(spots, players) == True:
+        cprint("Congratulations " + name_list[turn - 1] + " wins!", cpu_colour)
+        win = True
+        break
 
     turn += 1
     if turn > 2:
         turn = 1
     # Switch player turn
+print("win :)")

@@ -57,6 +57,7 @@ can_move = 0
 delay_one = 1
 # This is the default delay for the game.
 
+
 spots = {
     1: colored(players[2], player_2_color),
     2: colored(players[2], player_2_color),
@@ -73,7 +74,9 @@ spots = {
 sec_spots = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 #This list stores the spots that are available to be played on.
 
-
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    # This function clears the console.
 def main_board():
     print('\n    ' + spots[8] + '8  --  ' + spots[1] + '1   ')
     print('   \\          /')
@@ -102,10 +105,10 @@ def second_board():
 
 def exit_game(player_move):
     if player_move.lower() in [item.lower() for item in exit_list]:
-        os.system('cls' if os.name == 'nt' else 'clear')
+        clear()
         print("Thank you for playing Mū Tōrere!")
         time.sleep(delay_one)
-        os.system('cls' if os.name == 'nt' else 'clear')
+        clear()
         return True
     else:
         return False
@@ -284,17 +287,19 @@ def moved_piece(player_move, spots):
 
 def winning_logic(spots, players):
     global win
-    time.sleep(delay_one)
+    
     current_player = players[turn]
+    # makes players[turn] the current player
+    
     current_player = colored(current_player, color_mapping[players[turn]])
+    # makes the current player the colour of the player
+    
     for key, value in spots.items():
         if value == '0':
             empty_spot = key
+            #
 
-            print("v: ", value, " k:  ", key, "player: ", players[turn], "spot", spots.get(key), "current player", current_player)
-            
             if empty_spot == 9:
-                print("empty")
                 return False
 
             # This checks if the putahi is empty. If it is, it returns false.
@@ -305,11 +310,9 @@ def winning_logic(spots, players):
                     spots.get(2) == current_player and 
                     spots.get(9) == current_player):
                     win = True
-                    print("1 t")
                     
                 elif win is False:
                     win = False
-                    print("1 f")
                     
     
             elif empty_spot == 8:
@@ -317,38 +320,20 @@ def winning_logic(spots, players):
                     spots.get(1) == current_player and 
                     spots.get(9) == current_player):
                     win = True
-                    print("8 t")
                     
                 elif win is False:
                     win = False
-                    print("8 f")
                     
             
             else:
-                print(spots.get(empty_spot + 1))
-                print(spots.get(empty_spot - 1))
-                print(spots.get(9))
-                if spots.get(empty_spot + 1) == current_player:
-                    if spots.get(empty_spot - 1) == current_player:
-                        if spots.get(9) == current_player:
-                            win = True
-                            print("generic t")
-                        else:
-                            print("gneeric f9")
+                if (spots.get(empty_spot + 1) == current_player and
+                spots.get(empty_spot - 1) == current_player and
+                spots.get(9) == current_player):
+                    win = True
                     
-                    else:
-                        print("generic f-")
-                        
-                    
-                else:
-                    print("generic f+")
-                    
-                
-            
-                
                 
     if win == False:
-        print("no wins")
+        return False
     return win
 
 
@@ -361,8 +346,7 @@ name_list = introduction()
 # This calls the introduction function and stores the player names in name_list.
 while not win:
     # gameloop
-
-    # os.system('cls' if os.name == 'nt' else 'clear')
+    clear()
     # clears screen to remove excessive clutter
 
     main_board()
@@ -381,11 +365,13 @@ while not win:
 
     if winning_logic(spots, players) == True:
         cprint("Congratulations " + name_list[turn - 1] + " wins!", cpu_colour)
+        cprint("Thanks for playing Mu torere, made by Manav, see you later!", cpu_colour)
+        
         win = True
+        main_board()
         break
 
     turn += 1
     if turn > 2:
         turn = 1
     # Switch player turn
-print("win :)")

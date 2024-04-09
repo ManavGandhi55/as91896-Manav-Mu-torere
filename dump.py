@@ -139,3 +139,33 @@ for key, value in spots.items():
             win = False
 
 return win   
+
+
+# BOARDS 
+# 1
+# 1
+
+def main_board():
+    print('\n     ' + spots[8] + '  -  ' + spots[1] + '   ')
+    print('    \\       /')
+    print('   ' + spots[7] + '         ' + spots[2] + '')
+    print('   -    ' + spots[9] + '    -')
+    print('   ' + spots[6] + '         ' + spots[3] + '   ')
+    print('    /       \\')
+    print('     ' + spots[5] + '  -  ' + spots[4] + '   ')
+
+
+# This function prints the main board.
+
+
+def second_board():
+    print('\n     ' + sec_spots[7] + '  -  ' + sec_spots[0] + '   ')
+    print('    \\       /')
+    print('   ' + sec_spots[6] + '         ' + sec_spots[1] + '')
+    print('   -    ' + sec_spots[8] + '    -')
+    print('   ' + sec_spots[5] + '         ' + sec_spots[2] + '   ')
+    print('    /       \\')
+    print('     ' + sec_spots[4] + '  -  ' + sec_spots[3] + '   ')
+
+
+# This function prints the second board.

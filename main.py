@@ -13,7 +13,8 @@ import time
 # imports the time module for Python
 
 from termcolor import colored, cprint
-# imports the termcolor module for Python
+# imports the termcolor module for Python, imported non-core library.
+
 
 cpu_colour = "green"
 # This is the colour that is used for cprint functions(no inputs)
@@ -89,13 +90,11 @@ def clear():
 
     # This function clears the console.
 def main_board():
-    print('\n    ' + spots[8] + '8  --  ' + spots[1] + '1   ')
-    print('   \\          /')
-    print('  ' + spots[7] + '7          ' + spots[2] + '2')
-    print('  --    ' + spots[9] + '9    --')
-    print('  ' + spots[6] + '6          ' + spots[3] + '3   ')
-    print('   /          \\')
-    print('    ' + spots[5] + '5  --  ' + spots[4] + '4   ')
+    print('\n         ' + spots[1] + '       ')
+    print('      ' + spots[8] + '     ' + spots[2] + '     ')
+    print('    ' + spots[7] + '    ' + spots[9] + '    ' + spots[3])
+    print('      ' + spots[6] + '     ' + spots[4] + '     ')
+    print('         ' + spots[5] + '       ')
 
 
 # This function prints the main board.
@@ -175,6 +174,10 @@ def introduction():
     cprint("Welcome to the tradiational Māori board, Mū tōrere. ", cpu_colour) 
     cprint("This game was originalling invented by the Māori people.", cpu_colour)
     cprint("This program is made by Manav Gandhi!", cpu_colour)
+
+    # Credits original makers of the game.
+
+    
         
     name_list.append(input("Player 1, please enter your name: "))
     # This asks for the name of the first player, appending it to a list.
@@ -455,6 +458,7 @@ def winning_logic(spots, players):
 
 # -----------------------------------------------------------------
 
+main_board()
 name_list = introduction()
 # This calls the introduction function and stores the player names in name_list.
 

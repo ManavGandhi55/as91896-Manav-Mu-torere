@@ -89,25 +89,23 @@ def clear():
 
 
     # This function clears the console.
-def main_board():
-    print('\n         ' + spots[1] + '       ')
-    print('      ' + spots[8] + '     ' + spots[2] + '     ')
-    print('    ' + spots[7] + '    ' + spots[9] + '    ' + spots[3])
-    print('      ' + spots[6] + '     ' + spots[4] + '     ')
-    print('         ' + spots[5] + '       ')
+def main_board(): 
+    print('\n            ' + spots[1] + '       ')
+    print('\n       ' + spots[8] + '    |     ' + spots[2] + '     ')
+    print('\n    ' + spots[7] + '   ─   ' + spots[9] + '    ─   ' + spots[3])
+    print('\n       ' + spots[6] + '    |    ' + spots[4] + '     ')
+    print('\n            ' + spots[5] + '       ')
 
 
 # This function prints the main board.
 
 
 def second_board():
-    print('\n     ' + sec_spots[7] + '  -  ' + sec_spots[0] + '   ')
-    print('    \\       /')
-    print('   ' + sec_spots[6] + '         ' + sec_spots[1] + '')
-    print('   -    ' + sec_spots[8] + '    -')
-    print('   ' + sec_spots[5] + '         ' + sec_spots[2] + '   ')
-    print('    /       \\')
-    print('     ' + sec_spots[4] + '  -  ' + sec_spots[3] + '   ')
+    print('\n            ' + spots[1] + '       ')
+    print('\n       ' + spots[8] + '    |     ' + spots[2] + '     ')
+    print('\n    ' + spots[7] + '   ─   ' + spots[9] + '    ─   ' + spots[3])
+    print('\n       ' + spots[6] + '    |    ' + spots[4] + '     ')
+    print('\n            ' + spots[5] + '       ')
 
 
 # This function prints the second board.

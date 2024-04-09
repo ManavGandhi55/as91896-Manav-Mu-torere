@@ -3,6 +3,9 @@ to place the stones on, one on each corner of the octagon called periperi and li
 connecting it to the center which is called the Putahi, which is the 9th spot. In order 
 to win you have to try and block the opposing player from being able to make a name'''
 
+# Vowels for copying into the code ā ē ī ō ū
+
+
 import os
 # imports the os module for Python
 
@@ -14,10 +17,13 @@ from termcolor import colored, cprint
 
 cpu_colour = "green"
 # This is the colour that is used for cprint functions(no inputs)
+
 p1_colour = "blue"
 # This is player 1 colour.
+
 p2_colour = "red"
 # This is player 2 colour.
+
 error_colour = "yellow"
 # This is the colour that is used for error messages.
 # These are the colour variables that are used for the text in the game.
@@ -124,7 +130,7 @@ def exit_game(player_move):
 def rules():
     # This function prints the rules of the game.
 
-    cprint("The rules to Mu torere are very simple...", cpu_colour)
+    cprint("The rules to Mū tōrere are very simple...", cpu_colour)
     time.sleep(delay_one)
     cprint("The game is played on an 8-sided board.", cpu_colour)
     time.sleep(1.5)
@@ -166,7 +172,10 @@ def rules():
 
 
 def introduction():
-    cprint("Welcome to my Mū tōrere game, made by Manav Gandhi!", cpu_colour)
+    cprint("Welcome to the tradiational Māori board, Mū tōrere. ", cpu_colour) 
+    cprint("This game was originalling invented by the Māori people.", cpu_colour)
+    cprint("This program is made by Manav Gandhi!", cpu_colour)
+        
     name_list.append(input("Player 1, please enter your name: "))
     # This asks for the name of the first player, appending it to a list.
 
@@ -188,7 +197,7 @@ def introduction():
            color=cpu_colour)
     # This introduces the game to the players, including their playername variables
 
-    rules_check = input("Do you know the rules of Mu torere(Yes/No): ").lower()
+    rules_check = input("Do you know the rules of Mū tōrere(Yes/No): ").lower()
     # This asks if the players know the rules of the game.
 
     if rules_check == "yes":
@@ -471,14 +480,20 @@ while not win:
 
         clear()
         # clears screen to remove excessive clutter.
-        
+
         main_board()
         # This prints the main board again to show final move.
 
         cprint("Congratulations " + name_list[turn - 1] + " wins!", cpu_colour)
-        cprint("Thanks for playing Mu torere, made by Manav, see you later!",
-               cpu_colour)
         # This checks if the winning_logic function is true, printing winner msg.
+        
+        cprint("Thanks for playing Mū tōrere. ", cpu_colour)
+        time.sleep(delay_one)
+        cprint("This game was originalling invented by the Māori people.", cpu_colour)
+        time.sleep(delay_one)
+        cprint("This program is made by Manav Gandhi, See you later", cpu_colour)
+        time.sleep(delay_one)
+        # This prints the "credits", crediting so its culturally appropriate.
 
         win = True
         # This makes win true, ending the game loop.

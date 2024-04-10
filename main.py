@@ -91,9 +91,11 @@ def clear():
     # This function clears the console.
 def main_board(): 
     print('\n            ' + spots[1] + '       ')
-    print('\n       ' + spots[8] + '    |     ' + spots[2] + '     ')
-    print('\n    ' + spots[7] + '   ─   ' + spots[9] + '    ─   ' + spots[3])
-    print('\n       ' + spots[6] + '    |    ' + spots[4] + '     ')
+    print('\n       ' + spots[8] + '    |    ' + spots[2] + '     ')
+    print("         \\     /")
+    print('    ' + spots[7] + '  ─-   ' + spots[9] + '   -─  ' + spots[3])
+    print("         /     \\")
+    print('       ' + spots[6] + '    |    ' + spots[4] + '     ')
     print('\n            ' + spots[5] + '       ')
 
 

@@ -5,7 +5,6 @@ to win you have to try and block the opposing player from being able to make a n
 
 # Vowels for copying into the code ā ē ī ō ū
 
-
 import os
 # imports the os module for Python
 
@@ -14,7 +13,6 @@ import time
 
 from termcolor import colored, cprint
 # imports the termcolor module for Python, imported non-core library.
-
 
 cpu_colour = "green"
 # This is the colour that is used for cprint functions(no inputs)
@@ -60,7 +58,6 @@ player_moves = []
 # empty lists for playermoves and namelist before the while loop starts
 
 player_move = 0
-can_move = 0
 # variables for the while loop.
 
 delay_one = 1
@@ -80,16 +77,13 @@ spots = {
 # The dictionary above stores the starting positions of the Perpere on the board.
 # The dictionary stores the coloured perepere and the singular empty space.
 
-sec_spots = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-#This list stores the spots that are available to be played on.
-
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
     # This function clears the console.
-def main_board(): 
+def main_board():
     print('\n            ' + spots[1] + '       ')
     print('\n       ' + spots[8] + '    |    ' + spots[2] + '     ')
     print("         \\     /")
@@ -102,12 +96,14 @@ def main_board():
 # This function prints the main board.
 
 
-def second_board():
-    print('\n            ' + spots[1] + '       ')
-    print('\n       ' + spots[8] + '    |     ' + spots[2] + '     ')
-    print('\n    ' + spots[7] + '   ─   ' + spots[9] + '    ─   ' + spots[3])
-    print('\n       ' + spots[6] + '    |    ' + spots[4] + '     ')
-    print('\n            ' + spots[5] + '       ')
+def sec_board():
+    print('\n            1       ')
+    print('\n       8    |    2     ')
+    print("         \\     /")
+    print('    7  ─-   9   -─  3')
+    print("         /     \\")
+    print('       6    |    4     ')
+    print('\n            5       ')
 
 
 # This function prints the second board.
@@ -171,14 +167,13 @@ def rules():
 
 
 def introduction():
-    cprint("Welcome to the tradiational Māori board, Mū tōrere. ", cpu_colour) 
-    cprint("This game was originalling invented by the Māori people.", cpu_colour)
+    cprint("Welcome to the tradiational Māori board, Mū tōrere. ", cpu_colour)
+    cprint("This game was originalling invented by the Māori people.",
+           cpu_colour)
     cprint("This program is made by Manav Gandhi!", cpu_colour)
 
     # Credits original makers of the game.
 
-    
-        
     name_list.append(input("Player 1, please enter your name: "))
     # This asks for the name of the first player, appending it to a list.
 
@@ -458,7 +453,6 @@ def winning_logic(spots, players):
 
 # -----------------------------------------------------------------
 
-main_board()
 name_list = introduction()
 # This calls the introduction function and stores the player names in name_list.
 
@@ -471,7 +465,7 @@ while not win:
     main_board()
     # prints main board(movable pieces).
 
-    second_board()
+    sec_board()
     # prints second board(unmoveable pieces).
 
     if move_logic(player_moves, turn) is True:
@@ -490,17 +484,20 @@ while not win:
 
         cprint("Congratulations " + name_list[turn - 1] + " wins!", cpu_colour)
         # This checks if the winning_logic function is true, printing winner msg.
-        
+
         cprint("Thanks for playing Mū tōrere. ", cpu_colour)
         time.sleep(delay_one)
-        cprint("This game was originalling invented by the Māori people.", cpu_colour)
+        cprint("This game was originalling invented by the Māori people.",
+               cpu_colour)
         time.sleep(delay_one)
-        cprint("This program is made by Manav Gandhi, See you later", cpu_colour)
+        cprint("This program is made by Manav Gandhi, See you later",
+               cpu_colour)
         time.sleep(delay_one)
         # This prints the "credits", crediting so its culturally appropriate.
 
         win = True
         # This makes win true, ending the game loop.
+        
         break
         # This breaks the game loop.
 

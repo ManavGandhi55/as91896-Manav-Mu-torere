@@ -1,7 +1,9 @@
-'''Mū tōrere is a Moari board game played on an octagon shaped board, which has 9 spots 
-to place the stones on, one on each corner of the octagon called periperi and lines 
-connecting it to the center which is called the Putahi, which is the 9th spot. In order 
-to win you have to try and block the opposing player from being able to make a name'''
+'''Mū tōrere is a Māori board game played on an octagon shaped board, 
+which has 9 spots to place the stones on, one on each corner of the 
+octagon called perepere and lines connecting it to the center 
+which is called the Putahi, which is the 9th spot. In order 
+to win you have to try and block the opposing player from being 
+able to make a name'''
 
 # Vowels for copying into the code ā ē ī ō ū
 
@@ -32,7 +34,7 @@ color_mapping = {"B": p1_colour, "R": p2_colour}
 
 players = {1: "B", 2: "R"}
 # This dictionary stores the players' colours.
-# This can be changed in the future to allow for different reason like Moari names of blue and red.
+# This can be changed in the future, like using the Māori names of blue and red.
 
 player_1_color = color_mapping[players[1]]
 # This will give you "blue"
@@ -74,15 +76,17 @@ spots = {
     8: colored(players[1], player_1_color),
     9: "0"
 }
-# The dictionary above stores the starting positions of the Perpere on the board.
-# The dictionary stores the coloured perepere and the singular empty space.
+# The dictionary above stores the starting positions of the Perpere.
+# It also prints them on the main board.
+# Links the players dict to the colourmap variable to the spots dict.
 
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-
     # This function clears the console.
+
+
 def main_board():
     print('\n            ' + spots[1] + '       ')
     print('\n       ' + spots[8] + '    |    ' + spots[2] + '     ')
@@ -94,6 +98,7 @@ def main_board():
 
 
 # This function prints the main board.
+# Which holds the fancy text based graphics.
 
 
 def sec_board():
@@ -107,6 +112,7 @@ def sec_board():
 
 
 # This function prints the second board.
+# This is for the player to see what piece is linked to what number.
 
 
 def exit_game(player_move):
@@ -119,7 +125,7 @@ def exit_game(player_move):
     else:
         return False
     # This function checks if the player wants to quit the game.
-    # If the player wants to quit the game, it clears the console and prints a message
+    # If its in the exit_list it will clear the screen, print message.
 
 
 def rules():
@@ -214,7 +220,6 @@ def introduction():
 
     return name_list
     # This returns the name_list variable to be used later in the code.
-
     # returns the name_list to the main code, useful in the while loop.
 
 
@@ -228,6 +233,9 @@ def move_logic(player_moves, turn):
             f"{name_list[turn - 1]} ({players[turn]}) What piece would you like to move? "
         )
         # This asks the player what piece they want to move.
+        # turn - 1 is used to get the correct player name from the name_list list.
+        # Since lists start at 0 I need to subtract 1 from the turn variable.
+        # In order to get the correct player name outputed.
 
         if exit_game(player_move):
             return True
@@ -497,7 +505,7 @@ while not win:
 
         win = True
         # This makes win true, ending the game loop.
-        
+
         break
         # This breaks the game loop.
 

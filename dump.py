@@ -1,3 +1,5 @@
+
+
 def moved_piece(player_move, spots):
     # This function checks if the player's move is valid and if it is, it returns the value
     connecting_spots = {
